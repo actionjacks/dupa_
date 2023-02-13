@@ -26,7 +26,6 @@ export default {
   },
   data() {
     return {
-      heights: [],
       scrollTop: 0,
     };
   },
@@ -48,12 +47,12 @@ export default {
   },
   methods: {
     calculateSpaceBefore() {
-      const { scrollTop, heights, defaultHeight } = this;
+      const { scrollTop, defaultHeight } = this;
       let firstItemIndex = 0;
       let spaceBefore = 0;
       // eslint-disable-next-line no-constant-condition
       while (true) {
-        const itemHeight = heights[firstItemIndex] || defaultHeight;
+        const itemHeight = defaultHeight;
         if (spaceBefore + itemHeight > scrollTop) {
           break;
         }
@@ -66,7 +65,7 @@ export default {
       };
     },
     calculateItems(firstItemIndex, paddingTop) {
-      const { data, heights, defaultHeight, totalHeight, scrollTop } = this;
+      const { data, defaultHeight, totalHeight, scrollTop } = this;
 
       const items = [];
       let heightAcc = paddingTop;
@@ -77,7 +76,7 @@ export default {
         lastItemIndex += 1
       ) {
         items.push(data[lastItemIndex]);
-        heightAcc += heights[lastItemIndex] || defaultHeight;
+        heightAcc += defaultHeight;
       }
 
       return {
@@ -86,11 +85,11 @@ export default {
       };
     },
     calculateSpaceAfter(lastItemIndex) {
-      const { data, heights, defaultHeight } = this;
+      const { data, defaultHeight } = this;
 
       return data
         .slice(lastItemIndex)
-        .map((x, i) => heights[i + lastItemIndex] || defaultHeight)
+        .map(() => defaultHeight)
         .reduce((a, b) => a + b, 0);
     },
     handleScroll(event) {

@@ -11,16 +11,31 @@
         </div>
       </template>
     </VirtualScroll>
+    <br />
+    <!-- <RecycleScroller
+      class="scroller"
+      :items="MOCK_DATA"
+      :item-size="30"
+      key-field="id"
+      v-slot="{ item }"
+    >
+      <div class="item">
+        {{ item }}
+      </div>
+    </RecycleScroller> -->
   </div>
 </template>
 
 <script>
 import VirtualScroll from "@/components/VirtualScroll.vue";
+// import { RecycleScroller } from "vue-virtual-scroller";
+// import "vue-virtual-scroller/dist/vue-virtual-scroller.css";
 
 export default {
   name: "user-virtual-scroll",
   components: {
     VirtualScroll,
+    // RecycleScroller,
   },
   data() {
     return {
@@ -36,5 +51,12 @@ export default {
   overflow: hidden;
   height: 80vh;
   border: 5px gray solid;
+}
+
+.scroller {
+  height: 400px;
+}
+.item {
+  height: 30px;
 }
 </style>
