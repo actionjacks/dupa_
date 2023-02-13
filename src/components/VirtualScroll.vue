@@ -23,13 +23,11 @@ export default {
     totalHeight: { type: Number, required: true },
     defaultHeight: { type: Number, required: true },
     data: { type: Array, required: true },
-    extraItems: { type: Number, required: false, default: 20 },
   },
   data() {
     return {
       heights: [],
       scrollTop: 0,
-      numberOfItems: false,
     };
   },
   computed: {
@@ -49,12 +47,6 @@ export default {
     },
   },
   methods: {
-    reset() {
-      this.heights = [];
-      this.scrollTop = 0;
-      this.numberOfItems = false;
-      this.$refs.container.scrollTop = 0;
-    },
     calculateSpaceBefore() {
       const { scrollTop, heights, defaultHeight } = this;
       let firstItemIndex = 0;
@@ -68,7 +60,10 @@ export default {
         firstItemIndex += 1;
         spaceBefore += itemHeight;
       }
-      return { spaceBefore, firstItemIndex };
+      return {
+        spaceBefore,
+        firstItemIndex,
+      };
     },
     calculateItems(firstItemIndex, paddingTop) {
       const { data, heights, defaultHeight, totalHeight, scrollTop } = this;
@@ -84,14 +79,7 @@ export default {
         items.push(data[lastItemIndex]);
         heightAcc += heights[lastItemIndex] || defaultHeight;
       }
-      // const extraItems = 20;
-      // for (let i = 0; i < extraItems; i += 1) {
-      //   const item = data[lastItemIndex];
-      //   if (item === undefined) break;
-      //   items.push(item);
-      //   lastItemIndex += 1;
-      //   heightAcc += heights[lastItemIndex] || defaultHeight;
-      // }
+
       return {
         lastItemIndex,
         items,
