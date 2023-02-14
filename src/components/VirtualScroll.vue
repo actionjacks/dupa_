@@ -1,4 +1,8 @@
 <template>
+  spaceBefore:
+  {{ itemsHeights.spaceBefore }}
+  scrollTop:
+  {{ itemsHeights.scrollTop }}
   <div
     ref="container"
     class="container"
@@ -30,6 +34,11 @@ export default {
     };
   },
   computed: {
+    itemsHeights() {
+      const { scrollTop } = this;
+      const { spaceBefore } = this.calculateSpaceBefore();
+      return { spaceBefore, scrollTop };
+    },
     virtualScroll() {
       const { spaceBefore, firstItemIndex } = this.calculateSpaceBefore();
       const { items, lastItemIndex } = this.calculateItems(
